@@ -6,7 +6,7 @@
 #
 # 1. Follow skronk sd card flashing instructons in README.md
 # 2. Run this command from a fresh OS image to install patcher:
-# $  curl https://raw.githubusercontent.com/cooperbaker/skronk/refs/heads/main/skronk/scripts/install.sh | bash
+# $  curl https://raw.githubusercontent.com/cooperbaker/patcher/refs/heads/main/patcher/scripts/install.sh | bash
 #
 # Cooper Baker (c) 2024
 # http://nyquist.dev/patcher
