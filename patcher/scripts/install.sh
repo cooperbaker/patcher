@@ -63,19 +63,20 @@ echo ""
 
 
 #-------------------------------------------------------------------------------
-# install patcher firmware to /home/pi/patcher
+#install patcher firmware to /home/pi/patcher
 #-------------------------------------------------------------------------------
-# echo -e "\033[1mInstalling Patcher Firmware..."
-# echo -e "\033[0m\033[1A"
-# echo ""
-# cd /home/pi
-# sudo rm -rf patcher
-# git clone --depth 1 https://github.com/cooperbaker/patcher /home/pi/patcher
+echo -e "\033[1mInstalling Patcher Firmware..."
+echo -e "\033[0m\033[1A"
+echo ""
+cd /home/pi
+sudo rm -rf patcher
+git clone --depth 1 https://github.com/cooperbaker/patcher /home/pi/patcher
 # chmod -v 755 ./patcher/patcher.py
 # chmod -v 700 ./patcher/patcher/scripts/update.sh
-# chmod -v 400 ./patcher/patcher/scripts/install.sh
-# chmod -v 400 ./patcher/patcher/scripts/upload.command
-# echo ""
+chmod -v 400 ./patcher/patcher/scripts/install.sh
+chmod -v 400 ./patcher/patcher/scripts/upload.command
+chmod -v 755 ./patcher/patcher/scripts/zshrc
+echo ""
 
 
 #-------------------------------------------------------------------------------
@@ -125,8 +126,8 @@ echo ""
 echo -e "\033[1mApplying DTOverlays..."
 echo -e "\033[0m\033[1A"
 echo ""
-sudo grep -qxF 'dtoverlay=hifiberry-dac' /boot/firmware/config.txt || echo 'dtoverlay=hifiberry-dac' | sudo tee -a /boot/firmware/config.txt > /dev/null
-sudo grep -qxF 'dtoverlay=midi-uart0-pi5' /boot/firmware/config.txt || echo 'dtoverlay=midi-uart0-pi5' | sudo tee -a /boot/firmware/config.txt > /dev/null
+sudo grep -qxF 'dtoverlay=hifiberry-dac' /boot/firmware/config.txt || echo 'dtoverlay=hifiberry-dac' | sudo tee -a /boot/firmware/config.txt
+sudo grep -qxF 'dtoverlay=midi-uart0-pi5' /boot/firmware/config.txt || echo 'dtoverlay=midi-uart0-pi5' | sudo tee -a /boot/firmware/config.txt
 echo ""
 
 #-------------------------------------------------------------------------------
@@ -150,7 +151,7 @@ echo ""
 echo -e "\033[1mPatcher Install Complete"
 echo -e "\033[0m\033[1A"
 echo ""
-
+cd
 
 #-------------------------------------------------------------------------------
 # eof
