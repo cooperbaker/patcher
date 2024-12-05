@@ -115,7 +115,7 @@ echo -e "\033[0m\033[1A"
 echo ""
 sudo chsh -s /usr/bin/zsh pi
 sudo chsh -s /usr/bin/zsh root
-sudo ln -sv ./patcher/patcher/scripts/zshrc ./.zshrc
+ln -sv ./patcher/patcher/scripts/zshrc ./.zshrc
 sudo ln -sv ./patcher/patcher/scripts/zshrc /root/.zshrc
 echo ""
 
