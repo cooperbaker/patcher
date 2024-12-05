@@ -113,10 +113,10 @@ echo ""
 echo -e "\033[1mConfiguring ZSH..."
 echo -e "\033[0m\033[1A"
 echo ""
-sudo chsh -s /usr/bin/zsh pi
+chsh -s /usr/bin/zsh pi
 sudo chsh -s /usr/bin/zsh root
-ln -sv ./patcher/patcher/scripts/zshrc ./.zshrc
-sudo ln -sv ./patcher/patcher/scripts/zshrc /root/.zshrc
+ln -sv /home/pi/patcher/patcher/scripts/zshrc .zshrc
+sudo ln -sv /home/pi/patcher/patcher/scripts/zshrc /root/.zshrc
 echo ""
 
 #-------------------------------------------------------------------------------
