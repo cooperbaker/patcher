@@ -42,6 +42,7 @@ echo ""
 # sudo apt -y install rnbo-runner-panel
 sudo apt -y install python3-smbus
 sudo apt -y install puredata
+sudo apt -y install neofetch
 sudo apt -y install git
 sudo apt -y install zsh
 echo ""
