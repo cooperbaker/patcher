@@ -116,8 +116,6 @@ echo ""
 echo -e "\033[1mConfiguring ZSH..."
 echo -e "\033[0m\033[1A"
 echo ""
-mkdir -v /home/pi/scripts
-ln -sv /home/pi/patcher/patcher/scripts/rcode /home/pi/scripts/rcode
 sudo chsh -s /usr/bin/zsh pi
 sudo chsh -s /usr/bin/zsh root
 ln -sv /home/pi/patcher/patcher/scripts/zshrc .zshrc
