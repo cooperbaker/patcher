@@ -40,6 +40,7 @@ echo -e "\033[0m\033[1A"
 echo ""
 # sudo apt -y install jack_transport_link
 # sudo apt -y install rnbo-runner-panel
+sudo apt -y install libasound2-dev
 sudo apt -y install python3-smbus
 sudo apt -y install puredata
 sudo apt -y install neofetch
@@ -121,14 +122,23 @@ sudo ln -sv /home/pi/patcher/patcher/scripts/zshrc /root/.zshrc
 echo ""
 
 #-------------------------------------------------------------------------------
-# apply dtoverlays
+# edit /boot/firmware/config.txt
 #-------------------------------------------------------------------------------
-# dtoverlay=hifiberry-dacplusadc ???
-echo -e "\033[1mApplying DTOverlays..."
+echo -e "\033[1mEditing /boot/firmware/config.txt..."
 echo -e "\033[0m\033[1A"
 echo ""
-sudo grep -qxF 'dtoverlay=hifiberry-dac' /boot/firmware/config.txt || echo 'dtoverlay=hifiberry-dac' | sudo tee -a /boot/firmware/config.txt
+sudo rsync -auv /boot/firmware/config.txt /boot/firmware/config.txt.original
+
+# replace 'dt' if 'dt' does not exist
+# sudo grep -qxF 'dt' /boot/firmware/config.txt || echo 'dt' | sudo tee -a /boot/firmware/config.txt
+
+sudo grep -qxF 'dtoverlay=miniuart-bt' /boot/firmware/config.txt || echo 'dtoverlay=miniuart-bt' | sudo tee -a /boot/firmware/config.txt
+sudo grep -qxF 'dtparam=uart0=on' /boot/firmware/config.txt || echo 'dtparam=uart0=on' | sudo tee -a /boot/firmware/config.txt
 sudo grep -qxF 'dtoverlay=midi-uart0-pi5' /boot/firmware/config.txt || echo 'dtoverlay=midi-uart0-pi5' | sudo tee -a /boot/firmware/config.txt
+
+#sudo grep -qxF 'dtoverlay=hifiberry-dac' /boot/firmware/config.txt || echo 'dtoverlay=hifiberry-dac' | sudo tee -a /boot/firmware/config.txt
+# sudo grep -qxF 'dtoverlay=hifiberry-dacplusadc' /boot/firmware/config.txt || echo 'dtoverlay=hifiberry-dacplusadc' | sudo tee -a /boot/firmware/config.txt
+
 echo ""
 
 #-------------------------------------------------------------------------------
