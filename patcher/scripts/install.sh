@@ -78,6 +78,7 @@ git clone --depth 1 https://github.com/cooperbaker/patcher /home/pi/patcher
 chmod -v 400 ./patcher/patcher/scripts/install.sh
 chmod -v 400 ./patcher/patcher/scripts/upload.command
 chmod -v 755 ./patcher/patcher/scripts/zshrc
+chmod -v 755 ./patcher/patcher/scripts/rcode
 echo ""
 
 
@@ -115,11 +116,14 @@ echo ""
 echo -e "\033[1mConfiguring ZSH..."
 echo -e "\033[0m\033[1A"
 echo ""
+mkdir -v /home/pi/scripts
+ln -sv /home/pi/patcher/patcher/scripts/rcode /home/pi/scripts/rcode
 sudo chsh -s /usr/bin/zsh pi
 sudo chsh -s /usr/bin/zsh root
 ln -sv /home/pi/patcher/patcher/scripts/zshrc .zshrc
 sudo ln -sv /home/pi/patcher/patcher/scripts/zshrc /root/.zshrc
 echo ""
+
 
 #-------------------------------------------------------------------------------
 # edit /boot/firmware/config.txt
