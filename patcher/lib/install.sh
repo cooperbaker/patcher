@@ -2,7 +2,7 @@
 #-------------------------------------------------------------------------------
 # install.sh
 #
-# Patcher Install Script For RNBO Raspbian OS
+# Patcher Install Script For Raspbian OS
 #
 # 1. Follow skronk sd card flashing instructons in README.md
 # 2. Run this command from a fresh OS image to install patcher:
@@ -14,7 +14,7 @@
 
 
 #-------------------------------------------------------------------------------
-# install skronk
+# install patcher
 #-------------------------------------------------------------------------------
 sudo echo ""
 echo -e "\033[1mInstalling Patcher"
@@ -64,7 +64,7 @@ echo ""
 
 
 #-------------------------------------------------------------------------------
-# install patcher firmware
+# install firmware
 #-------------------------------------------------------------------------------
 echo -e "\033[1mInstalling Patcher Firmware..."
 echo -e "\033[0m\033[1A"
@@ -86,15 +86,15 @@ echo ""
 
 
 #-------------------------------------------------------------------------------
-# install patcher-pd patches to /home/pi/pd
+# install patcher-pd patches
 #-------------------------------------------------------------------------------
-# echo -e "\033[1mInstalling Patcher Pd Patches..."
-# echo -e "\033[0m\033[1A"
-# echo ""
-# cd /home/pi
-# sudo rm -rf pd
-# git clone --depth 1 https://github.com/cooperbaker/patcher-pd /home/pi/pd
-# echo ""
+echo -e "\033[1mInstalling Patcher Pd Patches..."
+echo -e "\033[0m\033[1A"
+echo ""
+cd /home/pi
+sudo rm -rf pd
+git clone --depth 1 https://github.com/cooperbaker/patcher-pd /home/pi/pd
+echo ""
 
 
 #-------------------------------------------------------------------------------
@@ -134,24 +134,25 @@ echo -e "\033[0m\033[1A"
 echo ""
 sudo rsync -auv /boot/firmware/config.txt /boot/firmware/config.txt.original
 # add 'dtparam...' if 'dtparam...' does not exist
+sudo grep -qxF 'dtoverlay=audio' /boot/firmware/config.txt || echo 'dtoverlay=audio' | sudo tee -a /boot/firmware/config.txt
 sudo grep -qxF 'dtparam=uart4-pi5' /boot/firmware/config.txt || echo 'dtparam=uart4-pi5' | sudo tee -a /boot/firmware/config.txt
 sudo grep -qxF 'dtoverlay=midi-uart4-pi5' /boot/firmware/config.txt || echo 'dtoverlay=midi-uart4-pi5' | sudo tee -a /boot/firmware/config.txt
-sudo grep -qxF 'dtoverlay=audio' /boot/firmware/config.txt || echo 'dtoverlay=audio' | sudo tee -a /boot/firmware/config.txt
 echo ""
 
+
 #-------------------------------------------------------------------------------
-# create patcher service
+# create midi service
 #-------------------------------------------------------------------------------
-# echo -e "\033[1mCreating Patcher Service..."
-# echo -e "\033[0m\033[1A"
-# echo ""
-# sudo systemctl disable patcher.service
-# sudo ln -sv /home/pi/patcher/patcher/lib/patcher.service /etc/systemd/system/patcher.service
-# sudo systemctl enable patcher.service
-# sudo systemctl daemon-reload
-# sudo systemctl start patcher.service
-# sudo systemctl status patcher.service
-# echo ""
+echo -e "\033[1mCreating Midi Service..."
+echo -e "\033[0m\033[1A"
+echo ""
+sudo systemctl disable midi.service
+sudo ln -sv /home/pi/patcher/patcher/lib/midi.service /etc/systemd/system/midi.service
+sudo systemctl enable midi.service
+sudo systemctl daemon-reload
+sudo systemctl start midi.service
+sudo systemctl status midi.service
+echo ""
 
 
 #-------------------------------------------------------------------------------
@@ -161,6 +162,7 @@ echo -e "\033[1mPatcher Install Complete"
 echo -e "\033[0m\033[1A"
 echo ""
 cd
+
 
 #-------------------------------------------------------------------------------
 # eof
