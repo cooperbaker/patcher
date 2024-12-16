@@ -1,30 +1,28 @@
-
-
-// Based on ttymidi.c by Thiago Teixeira and Jari Suominen 2012
-// http://www.varal.org/ttymidi/ttymidi.tar.gz
-// GNU General Public License Version 3
-// https://www.gnu.org/licenses/gpl-3.0.html
-
-
-// compile
-//------------------------------------------------------------------------------
-// sudo apt install gcc
-// sudo apt install libasound2-dev
-// gcc midi.c -v -o midi -lasound -lpthread
-
-// install
-//------------------------------------------------------------------------------
-// mv midi /usr/local/bin
-// chmod 755 /usr/local/bin/midi
-
-// run
-//------------------------------------------------------------------------------
-// /boot/firmware/config.txt :
-// + dtoverlay=uart4-pi5
-// + dtoverlay=midi-uart0-pi5
+//-------------------------------------------------------------------------------
+// midi.c
 //
-// $ midi
-
+// tty to midi converter
+//
+// compile:
+//      sudo apt install gcc
+//      sudo apt install libasound2-dev
+//      gcc midi.c -v -o midi -lasound -lpthread
+//
+// install:
+//      mv midi /usr/local/bin
+//      chmod 755 /usr/local/bin/midi
+//      dtoverlay=uart4-pi5             ( append to /boot/firmware/config.txt )
+//      dtoverlay=midi-uart4-pi5        ( append to /boot/firmware/config.txt )
+//
+// run:
+//      $ midi                          ( default pi5 pins [ 12 tx : 13 rx ] )
+//
+// based on ttymidi.c by Thiago Teixeira and Jari Suominen 2012
+// http://www.varal.org/ttymidi/ttymidi.tar.gz
+//
+// Cooper Baker (c) 2024
+// http://nyquist.dev/patcher
+//-------------------------------------------------------------------------------
 
 
 //------------------------------------------------------------------------------
@@ -55,7 +53,7 @@
 #define MAX_MSG_SIZE        1024
 #define DEFAULT_NAME        "Midi"
 #define DEFAULT_DEVICE      "/dev/ttyAMA4" // pi5 uart4 pins [ 12 tx : 13 rx ]
-// #define _POSIX_SOURCE       1       // POSIX compliant source
+
 
 
 //------------------------------------------------------------------------------
@@ -86,6 +84,10 @@ typedef struct _arguments
 	char name[ MAX_DEV_STR_LEN];
 } arguments_t;
 
+
+//------------------------------------------------------------------------------
+// functions
+//------------------------------------------------------------------------------
 void exit_cli( int sig )
 {
 	run = FALSE;
@@ -474,10 +476,10 @@ void* read_midi_from_serial_port(void* seq)
 
 main(int argc, char** argv)
 {
+    printf( "\nStarting MIDI...\n" );
 	//arguments arguments;
 	struct termios oldtio, newtio;
 	struct serial_struct ser_info;
-	char* modem_device = "/dev/ttyAMA4";
 	snd_seq_t *seq;
 
 	arg_set_defaults( &arguments );
