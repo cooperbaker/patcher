@@ -1,7 +1,7 @@
 #-------------------------------------------------------------------------------
 # midi.service
 #
-# Patcher TTY to MIDI Systemd Service Configuration File
+# Patcher MIDI Systemd Service Configuration File
 #
 # Start midi at boot as a persistent systemd service:
 # $ sudo ln -s /home/pi/patcher/patcher/lib/midi.service /etc/systemd/system/midi.service
@@ -19,7 +19,7 @@
 
 
 [Unit]
-Description=Patcher TTY to MIDI
+Description=Patcher MIDI
 #After=network.target
 
 [Service]
