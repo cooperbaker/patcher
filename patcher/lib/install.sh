@@ -88,13 +88,13 @@ echo ""
 #-------------------------------------------------------------------------------
 # install patcher-pd patches
 #-------------------------------------------------------------------------------
-echo -e "\033[1mInstalling Patcher Pd Patches..."
-echo -e "\033[0m\033[1A"
-echo ""
-cd /home/pi
-sudo rm -rf pd
-git clone --depth 1 https://github.com/cooperbaker/patcher-pd /home/pi/pd
-echo ""
+# echo -e "\033[1mInstalling Patcher Pd Patches..."
+# echo -e "\033[0m\033[1A"
+# echo ""
+# cd /home/pi
+# sudo rm -rf pd
+# git clone --depth 1 https://github.com/cooperbaker/patcher-pd /home/pi/pd
+# echo ""
 
 
 #-------------------------------------------------------------------------------
@@ -133,11 +133,17 @@ echo -e "\033[1mEditing /boot/firmware/config.txt..."
 echo -e "\033[0m\033[1A"
 echo ""
 sudo rsync -auv /boot/firmware/config.txt /boot/firmware/config.txt.original
-# add 'dtparam...' if 'dtparam...' does not exist
+
+# edit existing 'dtoverlay...'
+sudo sed -i '/dtoverlay=vc4-kms-v3d/c\dtoverlay=vc4-kms-v3d,noaudio' /boot/firmware/config.txt
+sudo sed -i '/dtparam=audio=on/c\#dtparam=audio=on' /boot/firmware/config.txt
+
+# add 'dtoverlay...' if 'dtoverlay...' does not exist
 sudo grep -qxF 'dtoverlay=audio' /boot/firmware/config.txt || echo 'dtoverlay=audio' | sudo tee -a /boot/firmware/config.txt
-sudo grep -qxF 'dtparam=uart4-pi5' /boot/firmware/config.txt || echo 'dtparam=uart4-pi5' | sudo tee -a /boot/firmware/config.txt
+sudo grep -qxF 'dtoverlay=uart4-pi5' /boot/firmware/config.txt || echo 'dtoverlay=uart4-pi5' | sudo tee -a /boot/firmware/config.txt
 sudo grep -qxF 'dtoverlay=midi-uart4-pi5' /boot/firmware/config.txt || echo 'dtoverlay=midi-uart4-pi5' | sudo tee -a /boot/firmware/config.txt
-# add overlays now
+
+# apply overlays now
 sudo dtoverlay -v audio
 sudo dtoverlay -v uart4-pi5
 sudo dtoverlay -v midi-uart4-pi-5
@@ -165,7 +171,9 @@ echo ""
 echo -e "\033[1mPatcher Install Complete"
 echo -e "\033[0m\033[1A"
 echo ""
-cd
+read -rsp $'Press any key to reboot...\n' -n1 key
+sudo reboot now
+echo ""
 
 
 #-------------------------------------------------------------------------------
