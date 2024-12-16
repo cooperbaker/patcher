@@ -137,6 +137,10 @@ sudo rsync -auv /boot/firmware/config.txt /boot/firmware/config.txt.original
 sudo grep -qxF 'dtoverlay=audio' /boot/firmware/config.txt || echo 'dtoverlay=audio' | sudo tee -a /boot/firmware/config.txt
 sudo grep -qxF 'dtparam=uart4-pi5' /boot/firmware/config.txt || echo 'dtparam=uart4-pi5' | sudo tee -a /boot/firmware/config.txt
 sudo grep -qxF 'dtoverlay=midi-uart4-pi5' /boot/firmware/config.txt || echo 'dtoverlay=midi-uart4-pi5' | sudo tee -a /boot/firmware/config.txt
+# add overlays now
+sudo dtoverlay -v audio
+sudo dtoverlay -v uart4-pi5
+sudo dtoverlay -v midi-uart4-pi-5
 echo ""
 
 
