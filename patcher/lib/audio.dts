@@ -1,10 +1,20 @@
-// Device tree overlay for generic I2S audio codecs with PLL
-// Raspi - I2S master : Codec - I2S slave with pll on bck ( e.g. pcm5102a / pcm1681 )
+//-------------------------------------------------------------------------------
+// audio.dts
+//
+// Device tree overlay for generic i2s codecs with bck driven pll internal mclk
+// pi5 ~ master : codec ~ slave ( e.g. pcm5102a / pcm1681 )
+//
 // compile: $ dtc -@ -H epapr -O dtb -o patcher.dtbo -Wno-unit_address_vs_reg patcher.dts
 // install: sudo cp patcher.dtbo /boot/overlays
 // overlay: dtoverlay=patcher.dtbo ( add to /boot/firmware/config.txt )
 // $ sudo alsactl --no-ucm -L init
 // $ sudo alsactl --no-ucm -L -d restore
+// # sudo alsactl info ###
+//
+// Cooper Baker (c) 2024
+// http://nyquist.dev/patcher
+//-------------------------------------------------------------------------------
+
 /dts-v1/;
 /plugin/;
 
