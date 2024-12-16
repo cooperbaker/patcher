@@ -133,16 +133,15 @@ echo -e "\033[1mEditing /boot/firmware/config.txt..."
 echo -e "\033[0m\033[1A"
 echo ""
 sudo rsync -auv /boot/firmware/config.txt /boot/firmware/config.txt.original
-
-# edit existing 'dtoverlay...'
-sudo sed -i '/dtoverlay=vc4-kms-v3d/c\dtoverlay=vc4-kms-v3d,noaudio' /boot/firmware/config.txt
+# edit existing 'dtoverlay...' declarations
+echo "#dtparam=audio=on → /boot/firmware/config.txt"
 sudo sed -i '/dtparam=audio=on/c\#dtparam=audio=on' /boot/firmware/config.txt
-
+echo "dtoverlay=vc4-kms-v3d,noaudio → /boot/firmware/config.txt"
+sudo sed -i '/dtoverlay=vc4-kms-v3d/c\dtoverlay=vc4-kms-v3d,noaudio' /boot/firmware/config.txt
 # add 'dtoverlay...' if 'dtoverlay...' does not exist
 sudo grep -qxF 'dtoverlay=audio' /boot/firmware/config.txt || echo 'dtoverlay=audio' | sudo tee -a /boot/firmware/config.txt
 sudo grep -qxF 'dtoverlay=uart4-pi5' /boot/firmware/config.txt || echo 'dtoverlay=uart4-pi5' | sudo tee -a /boot/firmware/config.txt
 sudo grep -qxF 'dtoverlay=midi-uart4-pi5' /boot/firmware/config.txt || echo 'dtoverlay=midi-uart4-pi5' | sudo tee -a /boot/firmware/config.txt
-
 # apply overlays now
 sudo dtoverlay -v audio
 sudo dtoverlay -v uart4-pi5
